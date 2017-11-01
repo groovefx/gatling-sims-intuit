@@ -1,0 +1,75 @@
+# Gatling DSE Stress Simulation Catalog
+The goal of the repo is to gather as many example simulations across a variety of use cases to be shared within the company for customer demos, performance/load testing and validation of data models.  Anyone many contribute new simulations.
+
+
+**Note:** This branch is only compatible with [Gatling DSE Stress](https://github.com/riptano/gatling-dse-stress/) release v1.1+.  If you are looking for v1.0.x compatible version please use the [stress-v1.0.x](https://github.com/riptano/gatling-dse-simcatalog/tree/stress-v1.0.x) branch.
+
+# Using the Examples
+
+## Setup
+First download the latest release of [Gatling DSE Stress](https://github.com/riptano/gatling-dse-stress/) or build parent project and move `build/libs/gatling-dse-stress-1.0.x.jar` to the libs directory.
+
+
+## Building
+To build a jar run `gradle clean build`.  The compiled jar will be found in `build/libs/gatling-dse-sims-1.0.jar` and the executable app will be at `build/gatling-dse-sims`
+
+
+## Running a Simulation
+First build the executable app using `gradle clean build` then run the app with the path or name of wanted sim name `gatling-dse-sims run {SimName}`.  
+
+Example: `build/gatling-dse-sims run WriteOrderSimulation`
+
+
+## Configuration
+Project configs can be found in the `src/main/resources` the `application.conf` is the file to set the Simulation and Cassandra settings.  
+
+During run you can override part or all of the application settings by using `-Dconfig.file={filePath}`.  If you want to override a single setting only just use the path of the config ie `-Dcassandra.hosts=127.0.0.1`.  This single setting can be used for any value in the `gatling.conf` file as well.
+
+
+To change configurations on the fly with excutable use the following format:
+`JAVA_OPTS="-Dcassandra.hosts=127.0.0.1" gatling-dse-sims run WriteOrderSimulation`
+
+To view all loaded and overridden configurations run the follow:
+`gatling-dse-sims showConf <all, general, cassandra, simulations, gatling>`
+
+See: [Gatling DSE Stress Wiki](https://github.com/riptano/gatling-dse-stress/wiki) for more specific docs for usage.
+
+
+### Listing Available Sims in Jar
+Run `build/gatling-
+dse-sims listSims` or `build/libs/gat
+
+### Showing Default Configurations
+Run `build/gatling-dse-sims showConf <all, general, cassandra, simulations, gatling>`
+
+
+## Setup in IDEs
+`gradle eclipse` or `gradle idea` (recommended)
+
+
+# Requirements
+- Java 1.8+
+- Gradle 3.5+
+- [Gatling DSE Stress](https://github.com/riptano/gatling-dse-stress) (place in `lib/` dir)
+
+Running `gradle assemble` will download all of the needed libraries including Scala to your local machine.
+
+# Questions or Requests
+Please use the [Issues section](https://github.com/riptano/gatling-dse-stress/issues) to add any questions on usage or requests
+
+Use `#gatling-dse` Slack channel to ask questions.
+
+
+
+### Contributing
+The easiest way to contribute is to:
+1. Clone this project
+1. Create a new branch w/ your name and simple desc. Example: brad-oauth
+1. Push your branch to the repo
+1. Create a new pull request against master
+
+The new pull request will be reviewed, tested and if verified will be merged with the _master_ branch.
+
+#### Requirements of New Contributions
+Please include the table creation in the Actions class for your under _createTables()_ or _initGraphSchema_ to let other users ramp up quickly with using you simulations. A short description of the simlation in the doc comments is also welcomed.
+
